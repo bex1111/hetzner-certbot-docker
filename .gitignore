@@ -1,0 +1,4 @@
+.idea
+.env
+data
+certbot.env

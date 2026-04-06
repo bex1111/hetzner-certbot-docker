@@ -1,0 +1,35 @@
+-include .env
+
+IMAGE_NAME = bex1111/hetzner-certbot
+
+init:
+	cp .env.example .env &&\
+    cp example.certbot.env certbot.env
+
+build:
+	docker build -t $(IMAGE_NAME) .
+
+create:
+	docker run --rm \
+      -e TZ=$(TIMEZONE) \
+      -v $(DATA_FOLDER_PATH)/certbot:/etc/letsencrypt \
+      -v $(SECRET_FOLDER_PATH)/certbot.env:/etc/letsencrypt/hetzner-cloud.ini \
+      $(IMAGE_NAME) certonly \
+      --authenticator dns-hetzner-cloud \
+      --email $(EMAIL) \
+      --agree-tos \
+      --no-eff-email \
+      -d "$(DOMAIN_NAME)"
+
+renew:
+	docker run --rm \
+      -e TZ=$(TIMEZONE) \
+      -v $(DATA_FOLDER_PATH)/certbot:/etc/letsencrypt \
+      -v $(SECRET_FOLDER_PATH)/certbot.env:/etc/letsencrypt/hetzner.ini \
+      $(IMAGE_NAME) renew
+
+
+default: help
+
+help:
+	cat Makefile
