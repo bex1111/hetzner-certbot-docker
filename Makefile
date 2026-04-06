@@ -13,9 +13,10 @@ create:
 	docker run --rm \
       -e TZ=$(TIMEZONE) \
       -v $(DATA_FOLDER_PATH)/certbot:/etc/letsencrypt \
-      -v $(SECRET_FOLDER_PATH)/certbot.env:/etc/letsencrypt/hetzner-cloud.ini \
+      -v $(SECRET_FOLDER_PATH)/certbot.env:/etc/letsencrypt/certbot.env \
       $(IMAGE_NAME) certonly \
       --authenticator dns-hetzner-cloud \
+      --dns-hetzner-cloud-credentials /etc/letsencrypt/certbot.env \
       --email $(EMAIL) \
       --agree-tos \
       --no-eff-email \
