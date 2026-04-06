@@ -2,3 +2,4 @@
 .env
 data
 certbot.env
+renew.sh
