@@ -26,7 +26,7 @@ renew:
 	docker run --rm \
       -e TZ=$(TIMEZONE) \
       -v $(DATA_FOLDER_PATH)/certbot:/etc/letsencrypt \
-      -v $(SECRET_FOLDER_PATH)/certbot.env:/etc/letsencrypt/hetzner.ini \
+      -v $(SECRET_FOLDER_PATH)/certbot.env:/etc/letsencrypt/certbot.env \
       $(IMAGE_NAME) renew
 
 
